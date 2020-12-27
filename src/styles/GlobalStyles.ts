@@ -21,7 +21,9 @@ export default createGlobalStyle`
   *, button, input {
     border: 0;
     background: none;
-    font-family: --apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: --apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', 
+                  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 
+                  'Helvetica Neue', sans-serif;
   }
 
   html {
@@ -29,10 +31,10 @@ export default createGlobalStyle`
   }
 
   :root {
-    --primary: #000;
+    --primary: #D9D9D9;
     --secondary: #15181c;
     --search: #202327;
-    --white: #D9D9D9;
+    --white: #000;
     --gray: #7a7a7a;
     --outline: #2f3336;
     --retweet: #00c06b;
