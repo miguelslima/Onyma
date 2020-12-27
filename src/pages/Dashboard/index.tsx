@@ -1,15 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// import { Container } from './styles';
+import { Container, ChooseContainer, Title } from "./styles";
 
 const Dashboard: React.FC = () => {
   return (
-    <div>
-      <h1>O que deseja fazer?</h1>
-      <Link to="/list">Lista das clínicas</Link>
-      <Link to="/register">Registrar uma clínica</Link>
-    </div>
+    <Container>
+      <Title>O que deseja fazer?</Title>
+
+      <ChooseContainer>
+        <Link to="/list">
+          <p>Listar clínicas</p>
+        </Link>
+        <Link to="/register">
+          <p>Registrar uma clínica</p>
+        </Link>
+      </ChooseContainer>
+    </Container>
   );
 };
 
