@@ -130,7 +130,7 @@ const Register: React.FC = () => {
             <Input
               type="text"
               name="phone"
-              placeholder="(11) 99999-9999"
+              placeholder="(84) 99999-9999"
               id="phone"
               value={phoneFormatter(values.phone)}
               onChange={handleChange("phone")}
@@ -146,7 +146,7 @@ const Register: React.FC = () => {
             <Input
               type="email"
               name="email"
-              placeholder="exemplo@email.com"
+              placeholder="email@email.com"
               id="email"
               value={values.email}
               onChange={handleChange("email")}
@@ -179,12 +179,25 @@ const Register: React.FC = () => {
             {messageError && <ErrorMessage>{messageError}</ErrorMessage>}
           </Label>
 
+          <Label htmlFor="address">
+            Endereço
+            <Input
+              disabled
+              type="text"
+              name="address"
+              id="address"
+              placeholder="Aguardando o CEP"
+              value={values.address || ""}
+            />
+          </Label>
+
           <Label htmlFor="addressNumber">
             Número <span>*</span>
             <Input
               type="text"
               name="addressNumber"
               id="addressNumber"
+              placeholder="Ex: 1020"
               value={handleAddressNumber(values.addressNumber)}
               onChange={handleChange("addressNumber")}
               onBlur={() => handleBlur("addressNumber")}
@@ -209,17 +222,6 @@ const Register: React.FC = () => {
             )}
           </Label>
         </AddressContainer>
-
-        <Label htmlFor="address">
-          Endereço
-          <Input
-            disabled
-            type="text"
-            name="address"
-            id="address"
-            value={values.address || ""}
-          />
-        </Label>
 
         <h4> Selecione os serviços disponíveis na clínica: </h4>
         <ServicesContainer>
