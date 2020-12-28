@@ -4,16 +4,20 @@ export const Container = styled.div`
   margin: 60px;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  background-color: #fff;
+  background-color: #f2f2f2;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+
   > p {
+    position: absolute;
+    right: 80px;
     color: red;
     font-size: 10px;
-    text-align: right;
+
+    padding: 15px 0 0;
   }
   > h4 {
     font-size: 14px;
@@ -27,18 +31,24 @@ export const Label = styled.label`
   font-weight: 700;
   margin: 10px;
   color: #76787a;
+
   span {
     color: red;
   }
 `;
 
-export const Input = styled.input`
+export const Input = styled.input.attrs({
+  placeholderTextColor: "#f44",
+})`
   width: 100%;
 
   padding: 10px;
   margin-top: 5px;
+
+  border: 1px solid #ddd;
+
   &:focus {
-    background-color: #f8f8ff;
+    background-color: #aaa;
   }
 `;
 
@@ -47,9 +57,10 @@ export const Button = styled.button`
   margin: 20px;
   width: 300px;
   height: 35px;
-  background-color: #5995ef;
+  background-color: #1d4691;
   color: #fff;
   border-radius: 3px;
+
   &:hover {
     opacity: 0.8;
   }
@@ -61,6 +72,7 @@ export const ErrorMessage = styled.p`
   color: red;
   margin-top: 5px;
 `;
+
 export const InfoContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -68,7 +80,7 @@ export const InfoContainer = styled.div`
 
 export const AddressContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 export const ServicesContainer = styled.div`
@@ -76,7 +88,8 @@ export const ServicesContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   border: 1px solid #d3d3d3;
+
   input {
-    margin-left: 5px;
+    margin-right: 5px;
   }
 `;

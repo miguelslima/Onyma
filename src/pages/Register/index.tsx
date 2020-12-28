@@ -114,6 +114,7 @@ const Register: React.FC = () => {
             type="text"
             name="name"
             id="name"
+            placeholder="Ex: Clínica Albert Einstein"
             value={values.name}
             onChange={handleChange("name")}
             onBlur={() => handleBlur("name")}
@@ -177,16 +178,6 @@ const Register: React.FC = () => {
             )}
             {messageError && <ErrorMessage>{messageError}</ErrorMessage>}
           </Label>
-          <Label htmlFor="address">
-            Endereço
-            <Input
-              disabled
-              type="text"
-              name="address"
-              id="address"
-              value={values.address || ""}
-            />
-          </Label>
 
           <Label htmlFor="addressNumber">
             Número <span>*</span>
@@ -209,6 +200,7 @@ const Register: React.FC = () => {
               type="text"
               name="addressComplement"
               id="addressComplement"
+              placeholder="Ex: Casa, Condomínio, Bloco"
               value={values.addressComplement}
               onChange={handleChange("addressComplement")}
             />
@@ -218,10 +210,20 @@ const Register: React.FC = () => {
           </Label>
         </AddressContainer>
 
-        <h4> Selecione os serviços: </h4>
+        <Label htmlFor="address">
+          Endereço
+          <Input
+            disabled
+            type="text"
+            name="address"
+            id="address"
+            value={values.address || ""}
+          />
+        </Label>
+
+        <h4> Selecione os serviços disponíveis na clínica: </h4>
         <ServicesContainer>
           <Label htmlFor="services.clinical">
-            Exames Clínicos
             <input
               type="checkbox"
               name="services.clinical"
@@ -229,10 +231,10 @@ const Register: React.FC = () => {
               onChange={handleChange("services.clinical")}
               checked={values.services.clinical}
             />
+            Exames Clínicos
           </Label>
 
           <Label>
-            Exames Complementares
             <input
               type="checkbox"
               name="services.complementary"
@@ -240,10 +242,10 @@ const Register: React.FC = () => {
               onChange={handleChange("services.complementary")}
               checked={values.services.complementary}
             />
+            Exames Complementares
           </Label>
 
           <Label htmlFor="services.ppra">
-            PPRA
             <input
               type="checkbox"
               name="services.ppra"
@@ -251,10 +253,10 @@ const Register: React.FC = () => {
               onChange={handleChange("services.ppra")}
               checked={values.services.ppra}
             />
+            PPRA
           </Label>
 
           <Label htmlFor="services.pcmso">
-            PCMSO
             <input
               type="checkbox"
               name="services.pcmso"
@@ -262,6 +264,7 @@ const Register: React.FC = () => {
               onChange={handleChange("services.pcmso")}
               checked={values.services.pcmso}
             />
+            PCMSO
           </Label>
         </ServicesContainer>
 
