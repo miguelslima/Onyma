@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import {
   Container,
@@ -12,7 +12,7 @@ import {
   ServicesContainer,
 } from "./styles";
 
-import db from "../../database/firestore";
+import { useToast } from "../../hooks/toast";
 import { useFormik } from "formik";
 import { useHistory } from "react-router-dom";
 import { FormSchema } from "../../utils/FormSchema";
@@ -21,17 +21,42 @@ import { phoneFormatter } from "../../utils/phoneFormatter";
 import { postalCodeFormatter } from "../../utils/postalCodeFormatter";
 import { registerClinic } from "../../services/api";
 
+interface RegisterClinicData {
+  name: string;
+  address: string;
+  addressNumber: string;
+  addressComplement: string;
+  email: string;
+  postalCode: string;
+  phone: string;
+  services: {
+    clinical: Boolean;
+    complementary: Boolean;
+    ppra: Boolean;
+    pcmso: Boolean;
+  };
+}
+
 const Register: React.FC = () => {
   const [messageError, setMessageError] = useState("");
   const history = useHistory();
+  const { addToast } = useToast();
 
-  const handleFormSubmit = async (formData: any) => {
+  const handleFormSubmit = async (formData: RegisterClinicData) => {
     const response = await registerClinic(formData);
 
     if (response) {
       history.push("/");
+      // addToast({
+      //   type: "success",
+      //   title: "Cadastro realizado!",
+      //   description: "Você já pode fazer seu logon no GoBarber!",
+      // });
+    } else {
+      console.log("error " + response);
     }
   };
+
   const {
     values,
     handleChange,
@@ -62,7 +87,7 @@ const Register: React.FC = () => {
     validationSchema: FormSchema,
   });
 
-  const handleAddressNumber = (value: any) => value.replace(/\D/g, "");
+  const handleAddressNumber = (value: string) => value.replace(/\D/g, "");
 
   const handlePostalCode = async (postalCode: any) => {
     if (postalCode.length === 9) {
@@ -86,7 +111,6 @@ const Register: React.FC = () => {
         <Label htmlFor="name">
           Nome da Clínica<span>*</span>
           <Input
-            // error={errors.name && touched.name}
             type="text"
             name="name"
             id="name"
@@ -103,7 +127,6 @@ const Register: React.FC = () => {
           <Label htmlFor="phone">
             WhatsApp<span>*</span>
             <Input
-              // error={errors.phone && touched.phone}
               type="text"
               name="phone"
               placeholder="(11) 99999-9999"
@@ -120,7 +143,6 @@ const Register: React.FC = () => {
           <Label htmlFor="email">
             E-mail <span>*</span>
             <Input
-              // error={errors.email && touched.email}
               type="email"
               name="email"
               placeholder="exemplo@email.com"
@@ -139,7 +161,6 @@ const Register: React.FC = () => {
           <Label htmlFor="postalCode">
             Cep <span>*</span>
             <Input
-              // error={errors.postalCode && touched.postalCode}
               type="text"
               name="postalCode"
               id="postalCode"
@@ -170,7 +191,6 @@ const Register: React.FC = () => {
           <Label htmlFor="addressNumber">
             Número <span>*</span>
             <Input
-              // error={errors.addressNumber && touched.addressNumber}
               type="text"
               name="addressNumber"
               id="addressNumber"
@@ -206,7 +226,6 @@ const Register: React.FC = () => {
               type="checkbox"
               name="services.clinical"
               id="services.clinical"
-              // value={values.services.clinical}
               onChange={handleChange("services.clinical")}
               checked={values.services.clinical}
             />
@@ -218,7 +237,6 @@ const Register: React.FC = () => {
               type="checkbox"
               name="services.complementary"
               id="services.complementary"
-              // value={values.services.complementary}
               onChange={handleChange("services.complementary")}
               checked={values.services.complementary}
             />
@@ -230,7 +248,6 @@ const Register: React.FC = () => {
               type="checkbox"
               name="services.ppra"
               id="services.ppra"
-              // value={values.services.ppra}
               onChange={handleChange("services.ppra")}
               checked={values.services.ppra}
             />
@@ -242,7 +259,6 @@ const Register: React.FC = () => {
               type="checkbox"
               name="services.pcmso"
               id="services.pcmso"
-              // value={values.services.pcmso}
               onChange={handleChange("services.pcmso")}
               checked={values.services.pcmso}
             />

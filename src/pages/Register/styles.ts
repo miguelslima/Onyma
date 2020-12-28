@@ -1,11 +1,11 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 20px;
+  margin: 60px;
   border-radius: 2px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   background-color: #fff;
-`
+`;
 
 export const Form = styled.form`
   display: flex;
@@ -21,7 +21,7 @@ export const Form = styled.form`
     margin: 10px;
     color: #76787a;
   }
-`
+`;
 export const Label = styled.label`
   font-size: 14px;
   font-weight: 700;
@@ -30,7 +30,7 @@ export const Label = styled.label`
   span {
     color: red;
   }
-`
+`;
 
 export const Input = styled.input`
   width: 100%;
@@ -40,7 +40,7 @@ export const Input = styled.input`
   &:focus {
     background-color: #f8f8ff;
   }
-`
+`;
 
 export const Button = styled.button`
   align-self: center;
@@ -53,23 +53,23 @@ export const Button = styled.button`
   &:hover {
     opacity: 0.8;
   }
-`
+`;
 
 export const ErrorMessage = styled.p`
   font-size: 12px;
   font-weight: 400;
   color: red;
   margin-top: 5px;
-`
+`;
 export const InfoContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-`
+`;
 
 export const AddressContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-`
+`;
 
 export const ServicesContainer = styled.div`
   margin: 10px;
@@ -79,4 +79,4 @@ export const ServicesContainer = styled.div`
   input {
     margin-left: 5px;
   }
-`
+`;
