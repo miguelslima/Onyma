@@ -1,12 +1,257 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 
-// import { Container } from './styles';
+import {
+  Container,
+  Form,
+  Input,
+  Label,
+  Button,
+  InfoContainer,
+  ErrorMessage,
+  AddressContainer,
+  ServicesContainer,
+} from "./styles";
+
+import db from "../../database/firestore";
+import { useFormik } from "formik";
+import { useHistory } from "react-router-dom";
+import { FormSchema } from "../../utils/FormSchema";
+import { getAddressByPostalCode } from "../../services/cep";
+import { phoneFormatter } from "../../utils/phoneFormatter";
+import { postalCodeFormatter } from "../../utils/postalCodeFormatter";
+import { registerClinic } from "../../services/api";
 
 const Register: React.FC = () => {
+  const [messageError, setMessageError] = useState("");
+  const history = useHistory();
+
+  const handleFormSubmit = async (formData: any) => {
+    const response = await registerClinic(formData);
+
+    if (response) {
+      history.push("/");
+    }
+  };
+  const {
+    values,
+    handleChange,
+    handleSubmit,
+    handleBlur,
+    errors,
+    setFieldValue,
+    touched,
+  } = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      phone: "",
+      postalCode: "",
+      address: "",
+      addressNumber: "",
+      addressComplement: "",
+      services: {
+        clinical: false,
+        complementary: false,
+        ppra: false,
+        pcmso: false,
+      },
+    },
+    onSubmit: (formData) => {
+      handleFormSubmit(formData);
+    },
+    validationSchema: FormSchema,
+  });
+
+  const handleAddressNumber = (value: any) => value.replace(/\D/g, "");
+
+  const handlePostalCode = async (postalCode: any) => {
+    if (postalCode.length === 9) {
+      const response = await getAddressByPostalCode(postalCode);
+
+      if (response.erro) {
+        return setMessageError("CEP inválido");
+      }
+
+      return setFieldValue("address", response.logradouro);
+    }
+
+    return null;
+  };
+
   return (
-    <div>
-      <h1>Registro</h1>
-    </div>
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <p>* Campos obrigatórios</p>
+
+        <Label htmlFor="name">
+          Nome da Clínica<span>*</span>
+          <Input
+            // error={errors.name && touched.name}
+            type="text"
+            name="name"
+            id="name"
+            value={values.name}
+            onChange={handleChange("name")}
+            onBlur={() => handleBlur("name")}
+          />
+          {errors.name && touched.name && (
+            <ErrorMessage>{errors.name}</ErrorMessage>
+          )}
+        </Label>
+
+        <InfoContainer>
+          <Label htmlFor="phone">
+            WhatsApp<span>*</span>
+            <Input
+              // error={errors.phone && touched.phone}
+              type="text"
+              name="phone"
+              placeholder="(11) 99999-9999"
+              id="phone"
+              value={phoneFormatter(values.phone)}
+              onChange={handleChange("phone")}
+              onBlur={() => handleBlur("phone")}
+            />
+            {errors.phone && touched.phone && (
+              <ErrorMessage>{errors.phone}</ErrorMessage>
+            )}
+          </Label>
+
+          <Label htmlFor="email">
+            E-mail <span>*</span>
+            <Input
+              // error={errors.email && touched.email}
+              type="email"
+              name="email"
+              placeholder="exemplo@email.com"
+              id="email"
+              value={values.email}
+              onChange={handleChange("email")}
+              onBlur={() => handleBlur("email")}
+            />
+            {errors.email && touched.email && (
+              <ErrorMessage>{errors.email}</ErrorMessage>
+            )}
+          </Label>
+        </InfoContainer>
+
+        <AddressContainer>
+          <Label htmlFor="postalCode">
+            Cep <span>*</span>
+            <Input
+              // error={errors.postalCode && touched.postalCode}
+              type="text"
+              name="postalCode"
+              id="postalCode"
+              placeholder="00000-000"
+              value={postalCodeFormatter(values.postalCode)}
+              onChange={(e) => {
+                handlePostalCode(e.target.value);
+                setFieldValue("postalCode", e.target.value);
+              }}
+              onBlur={() => handleBlur("postalCode")}
+            />
+            {errors.postalCode && touched.postalCode && (
+              <ErrorMessage>{errors.postalCode}</ErrorMessage>
+            )}
+            {messageError && <ErrorMessage>{messageError}</ErrorMessage>}
+          </Label>
+          <Label htmlFor="address">
+            Endereço
+            <Input
+              disabled
+              type="text"
+              name="address"
+              id="address"
+              value={values.address || ""}
+            />
+          </Label>
+
+          <Label htmlFor="addressNumber">
+            Número <span>*</span>
+            <Input
+              // error={errors.addressNumber && touched.addressNumber}
+              type="text"
+              name="addressNumber"
+              id="addressNumber"
+              value={handleAddressNumber(values.addressNumber)}
+              onChange={handleChange("addressNumber")}
+              onBlur={() => handleBlur("addressNumber")}
+            />
+            {errors.addressNumber && touched.addressNumber && (
+              <ErrorMessage>{errors.addressNumber}</ErrorMessage>
+            )}
+          </Label>
+
+          <Label htmlFor="addressComplement">
+            Complemento
+            <Input
+              type="text"
+              name="addressComplement"
+              id="addressComplement"
+              value={values.addressComplement}
+              onChange={handleChange("addressComplement")}
+            />
+            {errors.addressComplement && touched.addressComplement && (
+              <ErrorMessage>{errors.addressComplement}</ErrorMessage>
+            )}
+          </Label>
+        </AddressContainer>
+
+        <h4> Selecione os serviços: </h4>
+        <ServicesContainer>
+          <Label htmlFor="services.clinical">
+            Exames Clínicos
+            <input
+              type="checkbox"
+              name="services.clinical"
+              id="services.clinical"
+              // value={values.services.clinical}
+              onChange={handleChange("services.clinical")}
+              checked={values.services.clinical}
+            />
+          </Label>
+
+          <Label>
+            Exames Complementares
+            <input
+              type="checkbox"
+              name="services.complementary"
+              id="services.complementary"
+              // value={values.services.complementary}
+              onChange={handleChange("services.complementary")}
+              checked={values.services.complementary}
+            />
+          </Label>
+
+          <Label htmlFor="services.ppra">
+            PPRA
+            <input
+              type="checkbox"
+              name="services.ppra"
+              id="services.ppra"
+              // value={values.services.ppra}
+              onChange={handleChange("services.ppra")}
+              checked={values.services.ppra}
+            />
+          </Label>
+
+          <Label htmlFor="services.pcmso">
+            PCMSO
+            <input
+              type="checkbox"
+              name="services.pcmso"
+              id="services.pcmso"
+              // value={values.services.pcmso}
+              onChange={handleChange("services.pcmso")}
+              checked={values.services.pcmso}
+            />
+          </Label>
+        </ServicesContainer>
+
+        <Button type="submit">Cadastrar</Button>
+      </Form>
+    </Container>
   );
 };
 
