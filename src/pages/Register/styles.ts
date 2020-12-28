@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 60px;
+  width: 50%;
+  margin: 20px auto;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   background-color: #f2f2f2;
@@ -12,12 +13,10 @@ export const Form = styled.form`
   flex-direction: column;
 
   > p {
-    position: absolute;
-    right: 80px;
     color: red;
     font-size: 10px;
-
-    padding: 15px 0 0;
+    text-align: right;
+    padding: 0 10px 0 0;
   }
   > h4 {
     font-size: 14px;
@@ -74,19 +73,17 @@ export const ErrorMessage = styled.p`
 `;
 
 export const InfoContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  padding: 0 10px 10px 10px;
 `;
 
 export const AddressContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0 10px;
 `;
 
 export const ServicesContainer = styled.div`
   margin: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   border: 1px solid #d3d3d3;
 
   input {
