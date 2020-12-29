@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import mapIcon from "../../utils/mapIcon";
-import { Container, CardContainer, ContainerMap, ServiceContainer } from "./styles";
+import {
+  Container,
+  CardContainer,
+  ContainerMap,
+  ServiceContainer,
+} from "./styles";
 
 interface ClinicData {
   name: string;
@@ -59,7 +64,7 @@ const ListItem: React.FC = () => {
           doubleClickZoom={false}
         >
           <TileLayer
-            url={`https://api.mapbox.com/styles/v1/gnomolouco/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+            url={`https://api.mapbox.com/styles/v1/gnomolouco/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token={pk.eyJ1IjoiZ25vbW9sb3VjbyIsImEiOiJja2o5YTltZTIyYnpxMndwZGRqZng4eWtpIn0.vUG-OHVUDkhULGksXuOjVg}`}
           />
           <Marker
             interactive={false}
