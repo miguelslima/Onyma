@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  margin: 20px;
+`;
 
 export const SearchHeader = styled.div`
+  border-radius: 10px;
   width: 100%;
-  padding: 20px 0;
-  background-color: #fff;
+  padding: 20px;
+  background-color: #f8f8ff;
   display: flex;
   align-items: center;
 `;
@@ -28,13 +31,14 @@ export const SearchWrap = styled.div`
   height: 56px;
   padding: 8px 16px;
   border-radius: 20px;
-  background-color: #f5f5f5;
+  background-color: #fff;
   border: 1px solid #dfdfdf;
 
   input {
     outline: thin dotted;
     outline: 0px auto -webkit-focus-ring-color;
     outline-offset: 0px;
+    width: 90%;
   }
 `;
 

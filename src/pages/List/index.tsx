@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import iconSearch from "../../assets/icon-search.svg";
 import iconSort from "../../assets/icon-sort.svg";
+import ListItem from "../../components/ListItem";
 // import api from "@/services/api";
 import {
   Container,
@@ -37,33 +38,6 @@ const List: React.FC = () => {
     return () => clearTimeout(handler);
   }, [search]);
 
-  useEffect(() => {
-    const getList = async (): Promise<void> => {
-      // if (!state.listStatic.length) {
-      //   const response = await api.get<ClinicModel[]>("/clinics");
-      //   setState((old) => ({
-      //     ...old,
-      //     list: response.data,
-      //     listStatic: response.data,
-      //   }));
-      //   return;
-      // }
-      // if (search) {
-      //   const filterClinics = state.listStatic.filter((clinic) => {
-      //     const name = clinic.name.toLowerCase();
-      //     const value = searchTerm.toLowerCase();
-      //     if (name.includes(value)) {
-      //       return clinic;
-      //     }
-      //   });
-      //   setState((old) => ({ ...old, list: filterClinics }));
-      // } else {
-      //   setState((old) => ({ ...old, list: old.listStatic }));
-      // }
-    };
-    getList();
-  }, [searchTerm]);
-
   const orderList = useCallback(() => {
     setState((old) => ({
       ...old,
@@ -86,10 +60,6 @@ const List: React.FC = () => {
             />
           </SearchWrap>
           <FilterContainer>
-            {/* <button className="filter-wrap">
-              <img className="icon" src={iconFilter} alt="Pesquisar" />
-              <span>Filtrar</span>
-            </button> */}
             <Button onClick={orderList}>
               <img src={iconSort} alt="Ordenação" />
               <span>Ordenar</span>
@@ -99,9 +69,9 @@ const List: React.FC = () => {
       </SearchHeader>
       <div className="container">
         <ul className="clinic-list">
-          {/* {state.list.map((item: ClinicModel) => (
-            <ListItem key={item.id} item={item} />
-          ))} */}
+          <ListItem />
+          <ListItem />
+          <ListItem />
         </ul>
       </div>
     </Container>

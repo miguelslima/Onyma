@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 50%;
-  margin: 20px auto;
+  margin: 0px auto;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  background-color: #f2f2f2;
+  background-color: #f8f8ff;
 `;
 
 export const Form = styled.form`
@@ -25,6 +25,7 @@ export const Form = styled.form`
     color: #76787a;
   }
 `;
+
 export const Label = styled.label`
   font-size: 14px;
   font-weight: 700;
